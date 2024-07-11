@@ -1,0 +1,17 @@
+
+        <html>
+        <head>
+            <title>Your IP Address</title>
+            <script>
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('ip').textContent = data.ip;
+                    });
+            </script>
+        </head>
+        <body>
+            <h1>Your IP Address is: <span id="ip">Loading...</span></h1>
+        </body>
+        </html>
+        
