@@ -1,0 +1,98 @@
+body {
+    background-color: black;
+    color: #00ff00;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#welcome-message {
+    color: #00ff00;
+    font-size: 24px;
+    animation: fadein 3s ease-in-out;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#terminal {
+    background-color: black;
+    width: 80%;
+    max-width: 800px;
+    border: 2px solid #00ff00;
+    padding: 10px;
+    box-shadow: 0 0 10px #00ff00;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#terminal-output {
+    flex-grow: 1;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+#terminal-input-container {
+    display: flex;
+    align-items: center;
+}
+
+#terminal-prompt {
+    margin-right: 10px;
+    color: #00ff00
+}
+
+#terminal-input {
+    flex-grow: 1;
+    background-color: black;
+    color: #00ff00;
+    border: none;
+    outline: none;
+}
+
+#fake-shutdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: #00ff00;
+    font-size: 24px;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#tnt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: #00ff00;
+    font-size: 24px;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#tnt img {
+    cursor: pointer;
+}
