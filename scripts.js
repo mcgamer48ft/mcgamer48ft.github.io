@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     help - Display this help message
     contact - Display contact information
     github - Open GitHub profile
-    discord - Display Discord server info
+    discord - Display Discord username
     skills - Display list of skills
     clear - Clear the terminal
     su - Switch user
