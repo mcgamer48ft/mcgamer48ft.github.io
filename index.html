@@ -6,6 +6,14 @@
         <title>Wyrd Corporation</title>
         <link rel="stylesheet" href="style.css" />
         <script>
+            function redirectToFool() {
+                var win = window.open("fool.html", "_blank");
+                if (win) {
+                    win.focus();
+                    window.close(); // Attempt to close the original window
+                }
+            }
+
             // Function to detect console opening and redirect
             function detectDevTools() {
                 var threshold = 160;
@@ -15,7 +23,7 @@
                     window.outerHeight - window.innerHeight > threshold;
 
                 if (widthThreshold || heightThreshold) {
-                    window.location.href = "fool.html";
+                    redirectToFool();
                 }
             }
 
@@ -26,7 +34,7 @@
             // Disable right-click
             document.addEventListener("contextmenu", function (event) {
                 event.preventDefault();
-                window.location.href = "fool.html";
+                redirectToFool();
             });
 
             // Disable some keyboard shortcuts
@@ -39,7 +47,7 @@
                         e.keyCode === 85 ||
                         e.keyCode === 123)
                 ) {
-                    window.location.href = "fool.html";
+                    redirectToFool();
                     return false;
                 }
             };
