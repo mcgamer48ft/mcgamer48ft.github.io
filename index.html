@@ -71,24 +71,34 @@
 
         // Function to play notes
         const playNotes = (input, delay) => {
-            // Ensure input is valid
+            // Validate input
             if (!input) {
                 alert("Please enter valid notes!");
                 return;
             }
 
             const notes = input.split(",").map(note => note.trim());
-            let time = Tone.now(); // Start time
 
-            notes.forEach(note => {
+            // Use Tone.Transport for precise scheduling
+            Tone.Transport.cancel(); // Clear any previously scheduled events
+            Tone.Transport.stop();  // Reset the transport
+            Tone.Transport.start(); // Start the transport from the beginning
+
+            notes.forEach((note, index) => {
                 const toneNote = notesMap[note];
                 if (toneNote) {
-                    synth.triggerAttackRelease(toneNote, "8n", time);
-                    time += delay; // Increment time by the delay for the next note
+                    Tone.Transport.schedule((time) => {
+                        synth.triggerAttackRelease(toneNote, "8n", time);
+                    }, index * delay); // Schedule each note based on delay
                 } else {
                     console.warn(`Invalid note: ${note}`);
                 }
             });
+
+            // Stop the transport after all notes are played
+            Tone.Transport.schedule(() => {
+                Tone.Transport.stop();
+            }, notes.length * delay);
         };
 
         // Update slider value display
