@@ -1,68 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Wyrd Corporation</title>
-        <link rel="stylesheet" href="style.css" />
-        <script>
-            function redirectToFool() {
-                var win = window.open("fool.html", "_blank");
-                if (win) {
-                    win.focus();
-                    window.close(); // Attempt to close the original window
-                }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ļoti labs nošu spēlētājs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        input, button, .slider-container {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .slider {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ļoti labs nošu spēlētājs</h1>
+    <input type="text" id="notesInput" placeholder="Enter notes (e.g., Do, Fa, La)">
+    <div class="slider-container">
+        <label for="timerSlider">Note Delay (seconds):</label>
+        <input type="range" id="timerSlider" class="slider" min="0.1" max="2" step="0.1" value="0.5">
+        <span id="timerValue">0.5s</span>
+    </div>
+    <button id="playButton">Play</button>
+
+    <script>
+        // Note-to-frequency mapping for the middle octave
+        const notesMap = {
+            "Do": "C4",
+            "Re": "D4",
+            "Mi": "E4",
+            "Fa": "F4",
+            "Sol": "G4",
+            "La": "A4",
+            "Ti": "B4"
+        };
+
+        // Initialize Tone.js synth
+        const synth = new Tone.Synth().toDestination();
+
+        // Function to play notes
+        const playNotes = (input, delay) => {
+            // Ensure input is valid
+            if (!input) {
+                alert("Please enter valid notes!");
+                return;
             }
 
-            // Function to detect console opening and redirect
-            function detectDevTools() {
-                var threshold = 160;
-                var widthThreshold =
-                    window.outerWidth - window.innerWidth > threshold;
-                var heightThreshold =
-                    window.outerHeight - window.innerHeight > threshold;
+            const notes = input.split(",").map(note => note.trim());
+            let time = Tone.now(); // Start time
 
-                if (widthThreshold || heightThreshold) {
-                    redirectToFool();
+            notes.forEach(note => {
+                const toneNote = notesMap[note];
+                if (toneNote) {
+                    synth.triggerAttackRelease(toneNote, "8n", time);
+                    time += delay; // Increment time by the delay for the next note
+                } else {
+                    console.warn(`Invalid note: ${note}`);
                 }
-            }
-
-            // Set up event listeners
-            window.addEventListener("resize", detectDevTools);
-            setInterval(detectDevTools, 1000);
-
-            // Disable right-click
-            document.addEventListener("contextmenu", function (event) {
-                event.preventDefault();
-                redirectToFool();
             });
+        };
 
-            // Disable some keyboard shortcuts
-            document.onkeydown = function (e) {
-                if (
-                    e.ctrlKey &&
-                    (e.keyCode === 67 ||
-                        e.keyCode === 73 ||
-                        e.keyCode === 74 ||
-                        e.keyCode === 85 ||
-                        e.keyCode === 123)
-                ) {
-                    redirectToFool();
-                    return false;
-                }
-            };
-        </script>
-    </head>
-    <body>
-        <div>Hello!</div>
-        <div>Who are you?</div>
-        Input here:
-        <input
-            type="text"
-            inputmode="numeric"
-            pattern="[0-9]*"
-            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        />
-    </body>
+        // Update slider value display
+        const slider = document.getElementById("timerSlider");
+        const sliderValue = document.getElementById("timerValue");
+        slider.addEventListener("input", () => {
+            sliderValue.textContent = `${slider.value}s`;
+        });
+
+        // Event listener for the play button
+        document.getElementById("playButton").addEventListener("click", () => {
+            const input = document.getElementById("notesInput").value;
+            const delay = parseFloat(slider.value);
+
+            if (delay < 0.1 || delay > 2) {
+                alert("Please select a valid delay (0.1 to 2 seconds).");
+                return;
+            }
+
+            playNotes(input, delay);
+        });
+    </script>
+</body>
 </html>
