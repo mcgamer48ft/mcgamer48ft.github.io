@@ -109,7 +109,8 @@
         });
 
         // Event listener for the play button
-        document.getElementById("playButton").addEventListener("click", () => {
+        document.getElementById("playButton").addEventListener("click", async () => {
+            await Tone.start(); // Start the AudioContext
             const input = document.getElementById("notesInput").value;
             const delay = parseFloat(slider.value);
 
