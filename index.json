@@ -1,0 +1,34 @@
+{
+  "libraries": [
+    {
+      "name": "feather-loader-0.1.0.jar",
+      "sha1": "4961c966430eca40cf5083b1b6243a728d3b3fb2",
+      "url": "https://feather-loader.feathermc.com/libraries/feather-loader-0.1.0.jar",
+      "classpath": true
+    }
+  ],
+  "chainLoader": {
+    "version": "0.2.2",
+    "url": "https://feather-loader.feathermc.com/libraries/feather-standalone-0.2.2.jar",
+    "openUrl": "https://loader-update.feathermc.com"
+  },
+  "supportedPlatforms": [
+    "windows",
+    "osx-arm",
+    "linux"
+  ],
+  "fabricLoader": [
+    {
+      "minimumVersion": "0.15.0",
+      "name": "fabric-loader-0.15.jar",
+      "sha1": "a7bfabda19b91bd856702c5067beb4cfe4d3d729",
+      "url": "https://feather-loader.feathermc.com/libraries/fabric-loader-0.15.jar"
+    },
+    {
+      "minimumVersion": "0.16.1",
+      "name": "fabric-loader-0.16.jar",
+      "sha1": "3499151e69c8de0243059701091843d71c924398",
+      "url": "https://feather-loader.feathermc.com/libraries/fabric-loader-0.16.jar"
+    }
+  ]
+}
